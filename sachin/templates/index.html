@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}</h1>
+    
+    <h2>Your Todo List</h2>
+    <ul>
+        {% for todo in todos %}
+            <li>
+                {{ todo.content }}
+                <form method="POST" action="{{ url_for('update', todo_id=todo.id) }}" style="display: inline;">
+                    <input type="text" name="updated_content" placeholder="Update task">
+                    <button type="submit">Update</button>
+                </form>
+                <form method="POST" action="{{ url_for('delete', todo_id=todo.id) }}" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    
+    <h2>Add New Todo</h2>
+    <form method="POST" action="{{ url_for('add') }}">
+        <input type="text" name="content" placeholder="Enter your task">
+        <button type="submit">Add</button>
+    </form>
+    
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+</body>
+</html>
